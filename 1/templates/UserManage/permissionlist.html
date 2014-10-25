@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Permission List
+{% endblock %}
+
+{% block content %}
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-default {%if request.path = '/accounts/permission/add/'%} active {%endif%}" href="/accounts/permission/add"><span class="glyphicon glyphicon-edit"></span>新建权限</a>
+            <a class="btn btn-default {%if request.path = '/accounts/permission/list/'%} active {%endif%}" href="/accounts/permission/list"><span class="glyphicon glyphicon-list"></span>权限列表</a>
+        </div>
+    </div>
+
+    <hr/>
+
+    <table class="table table-hover table-striped  table-bordered table-condensed">
+        <tr>
+            <th>权限名称</th>
+            <th>URL</th>
+            <th>操作</th>
+        </tr>
+
+        {% for i in pList %}
+            <tr style="font-size: 13px;">
+                <td>{{ i.name }}</td>
+                <td>{{ i.url }}</td>
+
+                <td>
+                    <a href="/accounts/permission/edit/{{ i.id }}/" onclick="return confirm('确认编辑权限吗？？')"><span class="glyphicon glyphicon-edit btn-xs"></span></a>
+                    <a href="/accounts/permission/delete/{{ i.id }}/" onclick="return confirm('确认删除权限吗？？')"><span class="glyphicon glyphicon-trash btn-xs"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <!-- 分页功能 -->
+    第 {{ pList.number }} 页,共 {{ pList.paginator.num_pages }} 页.
+    <ul class="pager pull-right" style="margin: -5px 0;">
+        <li><a href="?page=1">首页</a></li>
+
+        {% if pList.has_previous %}
+            <li><a href="?page={{ pList.previous_page_number }}">上一页</a></li>
+        {% else %}
+            <li class="disabled"><a onclick="javascript:return false;">上一页</a></li>
+        {% endif %}
+
+        {% if pList.has_next %}
+            <li><a href="?page={{ pList.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="disabled"><a onclick="javascript:return false;">下一页</a></li>
+        {% endif %}
+
+        <li><a href="?page={{ pList.paginator.num_pages }}">尾页</a></li>
+    </ul>
+
+{% endblock %}

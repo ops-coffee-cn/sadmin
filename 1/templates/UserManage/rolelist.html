@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Role List
+{% endblock %}
+
+{% block content %}
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-default {%if request.path = '/accounts/role/add/'%} active {%endif%}" href="/accounts/role/add"><span class="glyphicon glyphicon-edit"></span>新建角色</a>
+            <a class="btn btn-default {%if request.path = '/accounts/role/list/'%} active {%endif%}" href="/accounts/role/list"><span class="glyphicon glyphicon-list"></span>角色列表</a>
+        </div>
+    </div>
+
+    <hr/>
+
+    <table class="table table-hover table-striped  table-bordered table-condensed">
+        <tr>
+            <th>角色名称</th>
+            <th>权限</th>
+            <th>操作</th>
+        </tr>
+
+        {% for i in rList %}
+            <tr style="font-size: 13px;">
+                <td>{{ i.name }} </td>
+                <td>{%for k,v in rDict.items%} {%if i.id = k%} {{v}} {%endif%} {%endfor%}</td>
+
+                <td>
+                    <a href="/accounts/role/edit/{{ i.id }}/" onclick="return confirm('确认编辑角色吗？？')"><span class="glyphicon glyphicon-edit btn-xs"></span></a>
+                    <a href="/accounts/role/delete/{{ i.id }}/" onclick="return confirm('确认删除角色吗？？')"><span class="glyphicon glyphicon-trash btn-xs"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <!-- 分页功能 -->
+    第 {{ lPage.number }} 页,共 {{ lPage.paginator.num_pages }} 页.
+    <ul class="pager pull-right" style="margin: -5px 0;">
+        <li><a href="?page=1">首页</a></li>
+
+        {% if lPage.has_previous %}
+            <li><a href="?page={{ lPage.previous_page_number }}">上一页</a></li>
+        {% else %}
+            <li class="disabled"><a onclick="javascript:return false;">上一页</a></li>
+        {% endif %}
+
+        {% if lPage.has_next %}
+            <li><a href="?page={{ lPage.next_page_number }}">下一页</a></li>
+        {% else %}
+            <li class="disabled"><a onclick="javascript:return false;">下一页</a></li>
+        {% endif %}
+
+        <li><a href="?page={{ lPage.paginator.num_pages }}">尾页</a></li>
+    </ul>
+
+{% endblock %}
