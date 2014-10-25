@@ -55,8 +55,15 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-from sae.const import (
-	MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
+if 'SERVER_SOFTWARE' in os.environ:
+    from sae.const import (
+        MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
+else:
+    MYSQL_HOST = 'localhost'
+    MYSQL_PORT = '3306'
+    MYSQL_USER = 'root'
+    MYSQL_PASS = ''
+    MYSQL_DB = 'accounts'
 
 DATABASES = {
     'default': {
