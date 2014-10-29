@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Add Role
+    {{ title }}
+{% endblock %}
+
+{% block head %}
+    <script src="/static/js/jquery.bootstrap-duallistbox.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-duallistbox.css">
 {% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" role="form" action="/accounts/role/add/" method="POST" >
+    <form class="form-horizontal" role="form" action={{ postUrl }} method="POST" >
     {% csrf_token %}
 
         {% for item in form %}
             <div class="form-group">
                 <label class="control-label col-md-1">{{item.label}}</label>
-                <div class="col-md-2">
+                <div class="col-md-11">
                     {{item}}
                 </div>
                 <div class="col-md-offset-1 col-md-10">
@@ -27,5 +32,14 @@
         </div>
 
     </form>
+
+    <script>
+        var demo1 = $('select[name="permission"]').bootstrapDualListbox({
+              nonSelectedListLabel: '可选择权限',
+              selectedListLabel: '已选择权限',
+              preserveSelectionOnMove: 'moved',
+              moveOnSelect: false,
+        });
+    </script>
 
 {% endblock %}

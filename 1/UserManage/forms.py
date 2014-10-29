@@ -79,7 +79,7 @@ class AddUserForm(forms.ModelForm):
             'email' : forms.TextInput(attrs={'class':'form-control'}),
             'nickname' : forms.TextInput(attrs={'class':'form-control'}),
             'sex' : forms.RadioSelect(choices=((u'男', u'男'),(u'女', u'女')),attrs={'class':'list-inline'}),
-            'role' : forms.Select(choices=[(x.name,x.name) for x in RoleList.objects.all()],attrs={'class':'form-control'}),
+            'role' : forms.Select(attrs={'class':'form-control'}),
             'is_active' : forms.Select(choices=((True, u'启用'),(False, u'禁用')),attrs={'class':'form-control'}),
         }
 
@@ -140,7 +140,7 @@ class EditUserForm(AddUserForm):
     def clean_password(self):
         return self.cleaned_data['password']
 
-class AddPermissionForm(forms.ModelForm):
+class PermissionListForm(forms.ModelForm):
     class Meta:
         model = PermissionList
         widgets = {
@@ -149,30 +149,23 @@ class AddPermissionForm(forms.ModelForm):
         }
 
     def __init__(self,*args,**kwargs):
-        super(AddPermissionForm,self).__init__(*args,**kwargs)
+        super(PermissionListForm,self).__init__(*args,**kwargs)
         self.fields['name'].label=u'名 称'
         self.fields['name'].error_messages={'required':u'请输入名称'}
         self.fields['url'].label=u'URL'
         self.fields['url'].error_messages={'required':u'请输入URL'}
 
-class EditPermissionForm(AddPermissionForm):
-    class Meta:
-        model = PermissionList
-        widgets = {
-            'name' : forms.TextInput(attrs={'class':'form-control'}),
-            'url' : forms.TextInput(attrs={'class':'form-control'}),
-        }
-
-class AddRoleForm(forms.ModelForm):
+class RoleListForm(forms.ModelForm):
     class Meta:
         model = RoleList
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
-            'permission' : forms.CheckboxSelectMultiple(choices=[(x.id,x.name) for x in PermissionList.objects.all()]),
+            'permission' : forms.SelectMultiple(attrs={'class':'form-control','size':'10','multiple':'multiple'}),
+            #'permission' : forms.CheckboxSelectMultiple(choices=[(x.id,x.name) for x in PermissionList.objects.all()]),
         }
 
     def __init__(self,*args,**kwargs):
-        super(AddRoleForm,self).__init__(*args,**kwargs)
+        super(RoleListForm,self).__init__(*args,**kwargs)
         self.fields['name'].label=u'名 称'
         self.fields['name'].error_messages={'required':u'请输入名称'}
         self.fields['permission'].label=u'URL'
@@ -180,11 +173,3 @@ class AddRoleForm(forms.ModelForm):
 
     #permission = forms.MultipleChoiceField(label=u'权 限',required=False,choices=[(x.id,x.name) for x in PermissionList.objects.all()],
     #    widget=forms.CheckboxSelectMultiple())
-
-class EditRoleForm(AddRoleForm):
-    class Meta:
-        model = RoleList
-        widgets = {
-            'name' : forms.TextInput(attrs={'class':'form-control'}),
-            'permission' : forms.CheckboxSelectMultiple(choices=[(x.id,x.name) for x in PermissionList.objects.all()]),
-        }

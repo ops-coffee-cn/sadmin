@@ -4,27 +4,30 @@
 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response,RequestContext
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from UserManage.models import User,RoleList,PermissionList
-from UserManage.forms import AddRoleForm,EditRoleForm
+from website.common.CommonPaginator import SelfPaginator
 from UserManage.views.permission import PermissionVerify
+from django.contrib.auth import get_user_model
+
+from UserManage.forms import RoleListForm
+from UserManage.models import RoleList
 
 @login_required
 @PermissionVerify()
 def AddRole(request):
     if request.method == "POST":
-        form = AddRoleForm(request.POST)
+        form = RoleListForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/accounts/role/list')
     else:
-        form = AddRoleForm()
-    
+        form = RoleListForm()
+
     kwvars = {
         'form':form,
         'request':request,
+        'title':'Role Add',
+        'postUrl':'/accounts/role/add/',
     }
 
     return render_to_response('UserManage/roleadd.html',kwvars,RequestContext(request))
@@ -32,33 +35,12 @@ def AddRole(request):
 @login_required
 @PermissionVerify()
 def ListRole(request):
-    rList = RoleList.objects.all()
-    pList = PermissionList.objects.all()
-
-    #处理前台页面显示权限名称（数据库里记录的是ID，要显示成名称更直观）
-    rDict = {}
-    for x in rList:
-        nS = ''
-        for y in x.permission:
-            name = pList.get(id = int(y)).name
-            nS = nS + ',' + name
-
-        rDict[long(x.id)] = nS.strip(',')
+    mList = RoleList.objects.all()
 
     #分页功能
-    paginator = Paginator(rList, 20)
-
-    page = request.GET.get('page')
-    try:
-        lst = paginator.page(page)
-    except PageNotAnInteger:
-        lst = paginator.page(1)
-    except EmptyPage:
-        lst = paginator.page(paginator.num_pages)
+    lst = SelfPaginator(request,mList, 20)
 
     kwvars = {
-        'rList':rList,
-        'rDict':rDict,
         'lPage':lst,
         'request':request,
     }
@@ -71,17 +53,18 @@ def EditRole(request,ID):
     iRole = RoleList.objects.get(id=ID)
 
     if request.method == "POST":
-        form = EditRoleForm(request.POST,instance=iRole)
+        form = RoleListForm(request.POST,instance=iRole)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/accounts/role/list')
     else:
-        form = EditRoleForm(instance=iRole)
+        form = RoleListForm(instance=iRole)
 
     kwvars = {
         'form':form,
-        'object':iRole,
         'request':request,
+        'title':'Role Edit',
+        'postUrl':'/accounts/role/edit/%s/' %ID,
     }
 
     return render_to_response('UserManage/roleedit.html',kwvars,RequestContext(request))

@@ -21,7 +21,7 @@
             <th>操作</th>
         </tr>
 
-        {% for i in pList %}
+        {% for i in lPage %}
             <tr style="font-size: 13px;">
                 <td>{{ i.name }}</td>
                 <td>{{ i.url }}</td>
@@ -35,24 +35,5 @@
 
     </table>
 
-    <!-- 分页功能 -->
-    第 {{ pList.number }} 页,共 {{ pList.paginator.num_pages }} 页.
-    <ul class="pager pull-right" style="margin: -5px 0;">
-        <li><a href="?page=1">首页</a></li>
-
-        {% if pList.has_previous %}
-            <li><a href="?page={{ pList.previous_page_number }}">上一页</a></li>
-        {% else %}
-            <li class="disabled"><a onclick="javascript:return false;">上一页</a></li>
-        {% endif %}
-
-        {% if pList.has_next %}
-            <li><a href="?page={{ pList.next_page_number }}">下一页</a></li>
-        {% else %}
-            <li class="disabled"><a onclick="javascript:return false;">下一页</a></li>
-        {% endif %}
-
-        <li><a href="?page={{ pList.paginator.num_pages }}">尾页</a></li>
-    </ul>
-
+    {% include "common/paginator.html" %}
 {% endblock %}
