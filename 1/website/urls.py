@@ -33,8 +33,6 @@ urlpatterns += patterns('UserManage.views',
     url(r'^accounts/user/changepwd/$', 'user.ChangePassword'),
     url(r'^accounts/user/resetpwd/(?P<ID>\d+)/$', 'user.ResetPassword'),
 
-    url(r'^accounts/role/show/(?P<ID>\d+)/$', 'role.EditRole'),
-
     url(r'^accounts/role/add/$', 'role.AddRole'),
     url(r'^accounts/role/list/$', 'role.ListRole'),
     url(r'^accounts/role/edit/(?P<ID>\d+)/$', 'role.EditRole'),

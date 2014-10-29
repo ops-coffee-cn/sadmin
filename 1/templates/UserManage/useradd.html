@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Add User
+    {{ title }}
 {% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" role="form" action="/accounts/user/add/" method="POST" >
+    <form class="form-horizontal" role="form" action={{ postUrl }} method="POST" >
     {% csrf_token %}
 
         {% for item in form %}

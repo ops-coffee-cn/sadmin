@@ -7,7 +7,6 @@ from django.shortcuts import render_to_response,RequestContext
 from django.contrib.auth.decorators import login_required
 from website.common.CommonPaginator import SelfPaginator
 from UserManage.views.permission import PermissionVerify
-from django.contrib.auth import get_user_model
 
 from UserManage.forms import RoleListForm
 from UserManage.models import RoleList

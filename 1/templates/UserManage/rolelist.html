@@ -17,14 +17,12 @@
     <table class="table table-hover table-striped  table-bordered table-condensed">
         <tr>
             <th>角色名称</th>
-            <th>权限</th>
             <th>操作</th>
         </tr>
 
         {% for i in lPage %}
             <tr style="font-size: 13px;">
                 <td>{{ i.name }} </td>
-                <td>权限列表</td>
 
                 <td>
                     <a href="/accounts/role/edit/{{ i.id }}/" onclick="return confirm('确认编辑角色吗？？')"><span class="glyphicon glyphicon-edit btn-xs"></span></a>

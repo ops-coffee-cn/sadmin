@@ -26,7 +26,7 @@
             <th>操作</th>
         </tr>
 
-            {% for i in userList %}
+            {% for i in lPage %}
                 <tr style="font-size: 13px;">
                     <td>{{ i.username }}</td>
                     <td>{{ i.nickname|default:"----" }}</td>
@@ -50,24 +50,5 @@
 
         </table>
 
-        <!-- 分页功能 -->
-        第 {{ userList.number }} 页,共 {{ userList.paginator.num_pages }} 页.
-        <ul class="pager pull-right" style="margin: -5px 0;">
-            <li><a href="?page=1">首页</a></li>
-
-            {% if userList.has_previous %}
-                <li><a href="?page={{ userList.previous_page_number }}">上一页</a></li>
-            {% else %}
-                <li class="disabled"><a onclick="javascript:return false;">上一页</a></li>
-            {% endif %}
-
-            {% if userList.has_next %}
-                <li><a href="?page={{ userList.next_page_number }}">下一页</a></li>
-            {% else %}
-                <li class="disabled"><a onclick="javascript:return false;">下一页</a></li>
-            {% endif %}
-
-            <li><a href="?page={{ userList.paginator.num_pages }}">尾页</a></li>
-        </ul>
-
+    {% include "common/paginator.html" %}
 {% endblock %}

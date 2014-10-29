@@ -6,7 +6,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response,RequestContext
 from django.contrib.auth.decorators import login_required
 from website.common.CommonPaginator import SelfPaginator
-from django.contrib.auth import get_user_model
 
 from UserManage.forms import PermissionListForm
 from UserManage.models import User,RoleList,PermissionList

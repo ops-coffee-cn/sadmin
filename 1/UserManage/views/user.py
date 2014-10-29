@@ -2,14 +2,15 @@
 #-*- coding: utf-8 -*-
 #update:2014-09-12 by liufeily@163.com
 
+from django.http import HttpResponse,HttpResponseRedirect
+from django.shortcuts import render_to_response,RequestContext
+from django.contrib.auth.decorators import login_required
+from website.common.CommonPaginator import SelfPaginator
+from UserManage.views.permission import PermissionVerify
+
 from django.contrib import auth
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse,HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response,RequestContext
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from UserManage.forms import LoginUserForm,ChangePasswordForm,AddUserForm,EditUserForm
-from UserManage.views.permission import PermissionVerify
 
 def LoginUser(request):
     '''用户登录view'''
@@ -62,21 +63,13 @@ def ChangePassword(request):
 @login_required
 @PermissionVerify()
 def ListUser(request):
-    userList = get_user_model().objects.all()
+    mList = get_user_model().objects.all()
 
     #分页功能
-    paginator = Paginator(userList, 15)
-
-    page = request.GET.get('page')
-    try:
-        lst = paginator.page(page)
-    except PageNotAnInteger:
-        lst = paginator.page(1)
-    except EmptyPage:
-        lst = paginator.page(paginator.num_pages)
+    lst = SelfPaginator(request,mList, 20)
 
     kwvars = {
-        'userList':lst,
+        'lPage':lst,
         'request':request,
     }
 
@@ -100,6 +93,8 @@ def AddUser(request):
     kwvars = {
         'form':form,
         'request':request,
+        'title':'User Add',
+        'postUrl':'/accounts/user/add/',
     }
 
     return render_to_response('UserManage/useradd.html',kwvars,RequestContext(request))
@@ -130,8 +125,9 @@ def EditUser(request,ID):
 
     kwvars = {
         'form':form,
-        'object':user,
         'request':request,
+        'title':'User Edit',
+        'postUrl':'/accounts/user/edit/%s/' %ID,
     }
 
     return render_to_response('UserManage/useredit.html',kwvars,RequestContext(request))
