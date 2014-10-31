@@ -125,6 +125,7 @@ def EditUser(request,ID):
 
     kwvars = {
         'form':form,
+        'object':user,
         'request':request,
         'title':'User Edit',
         'postUrl':'/accounts/user/edit/%s/' %ID,
