@@ -17,3 +17,7 @@
 权限判断逻辑：
 	1.用户隶属于某个角色（组的概念），角色具有一定的权限
 	2.当用户访问某个url时，获取当用户的用户名和要访问的URL地址，判断用户隶属的角色是否包含所以访问的url
+
+Demo:
+    http://sadmin.sinaapp.com
+    我的blog也是基于这个开发的：http://liufeily.sinaapp.com/
