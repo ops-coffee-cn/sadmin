@@ -1,0 +1,62 @@
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"><span class="glyphicon glyphicon-list-alt btn-xs"></span>知识库</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse {% if '/' = request.path %} in {% endif %}">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tbody><tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#userlist">知识列表</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#useradd">添加知识</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#">知识统计</a>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed"><span class="glyphicon glyphicon-list-alt btn-xs"></span>用户管理</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse {% if 'accounts' in request.path %} in {% endif %}">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/user/list">用户管理</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/role/list">角色管理</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/permission/list">权限管理</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>

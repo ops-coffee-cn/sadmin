@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Permission List
+{% endblock %}
+
+{% block content %}
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-default {%if request.path = '/accounts/permission/add/'%} active {%endif%}" href="/accounts/permission/add"><span class="glyphicon glyphicon-edit"></span>新建权限</a>
+            <a class="btn btn-default {%if request.path = '/accounts/permission/list/'%} active {%endif%}" href="/accounts/permission/list"><span class="glyphicon glyphicon-list"></span>权限列表</a>
+        </div>
+    </div>
+
+    <hr/>
+
+    <table class="table table-hover table-striped  table-bordered table-condensed">
+        <tr>
+            <th>权限名称</th>
+            <th>URL</th>
+            <th>操作</th>
+        </tr>
+
+        {% for i in lPage %}
+            <tr style="font-size: 13px;">
+                <td>{{ i.name }}</td>
+                <td>{{ i.url }}</td>
+
+                <td>
+                    <a href="/accounts/permission/edit/{{ i.id }}/" onclick="return confirm('确认编辑权限吗？？')"><span class="glyphicon glyphicon-edit btn-xs"></span></a>
+                    <a href="/accounts/permission/delete/{{ i.id }}/" onclick="return confirm('确认删除权限吗？？')"><span class="glyphicon glyphicon-trash btn-xs"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    {% include "common/paginator.html" %}
+{% endblock %}
