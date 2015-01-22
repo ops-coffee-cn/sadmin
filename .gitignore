@@ -1,0 +1,7 @@
+*.log
+*.pot
+*.pyc
+*.svn
+.svn
+local_settings.py
+nohup.out
