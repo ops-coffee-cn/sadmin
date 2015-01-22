@@ -9,9 +9,7 @@
     {% csrf_token %}
 
         {% for item in form %}
-            {% if item.name = 'password' %}
-                {{item}}
-            {% else %}
+            {% if item.name != 'password' %}
                 <div class="form-group">
                     <label class="control-label col-md-1">{{item.label}}</label>
                     <div class="col-md-2">
