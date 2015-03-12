@@ -19,5 +19,5 @@
 	2.当用户访问某个url时，获取当用户的用户名和要访问的URL地址，判断用户隶属的角色是否包含所以访问的url
 
 ###Demo:
-    [http://sadmin.sinaapp.com](http://sadmin.sinaapp.com)
-    我的blog也是基于这个开发的：[http://liufeily.sinaapp.com](http://liufeily.sinaapp.com)
+    http://sadmin.sinaapp.com
+    我的blog也是基于这个开发的：http://liufeily.sinaapp.com
