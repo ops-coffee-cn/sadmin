@@ -53,16 +53,15 @@
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{ request.user.username }} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/accounts/user/changepwd">修改密码</a></li>
+                                <li><a href={% url "changepasswordurl" %}>修改密码</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/accounts/logout">注销登陆</a></li>
+                                <li><a href={% url "logouturl" %}>注销登陆</a></li>
                             </ul>
                         </li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav">
-                        <li {% if 'login' in request.path %} class="active" {% endif %}><a href="/accounts/login">登陆</a></li>
-                        <!--li {% if request.path = '/' %} class="active" {% endif %}><a href="/">Home</a></li-->
+                        <li {% if 'login' in request.path %} class="active" {% endif %}><a href={% url "loginurl" %}>登陆</a></li>
                         <li {% if 'about' in request.path %} class="active" {% endif %}><a href="/about">关于</a></li>
                     </ul>
 

@@ -2,7 +2,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"><span class="glyphicon glyphicon-list-alt btn-xs"></span>知识库</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"><span class="glyphicon glyphicon-list-alt btn-xs"></span>博客管理</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse {% if '/' = request.path %} in {% endif %}">
@@ -10,17 +10,12 @@
                             <table class="table">
                                 <tbody><tr>
                                     <td>
-                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#userlist">知识列表</a>
+                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#">分类管理</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#useradd">添加知识</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#">知识统计</a>
+                                        <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="#">文章管理</a>
                                     </td>
                                 </tr>
                             </tbody></table>
@@ -40,17 +35,17 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/user/list">用户管理</a>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href={% url "listuserurl" %}>用户管理</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/role/list">角色管理</a>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href={% url "listroleurl" %}>角色管理</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href="/accounts/permission/list">权限管理</a>
+                                            <span class="glyphicon glyphicon-tree-conifer btn-xs"></span><a href={% url "listpermissionurl" %}>权限管理</a>
                                         </td>
                                     </tr>
                                 </tbody>

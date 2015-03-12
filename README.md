@@ -1,4 +1,4 @@
-#accounts
+#Sadmin
 
 版本：
 	python v2.6
@@ -20,4 +20,4 @@
 
 Demo:
     http://sadmin.sinaapp.com
-    我的blog也是基于这个开发的：http://liufeily.sinaapp.com/
+    我的blog也是基于这个开发的：http://liufeily.sinaapp.com

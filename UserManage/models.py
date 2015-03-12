@@ -2,7 +2,6 @@
 #-*- coding: utf-8 -*-
 #update:2014-09-12 by liufeily@163.com
 
-import ast
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
@@ -17,7 +16,6 @@ class PermissionList(models.Model):
 class RoleList(models.Model):
     name = models.CharField(max_length=64)
     permission = models.ManyToManyField(PermissionList,null=True,blank=True)
-    #permission = models.CharField(max_length=256, blank=True, null=True)
 
     def __unicode__(self):
         return self.name

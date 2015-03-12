@@ -12,6 +12,3 @@ def Home(request):
 
 def About(request):
    return render_to_response('about.html',locals(),RequestContext(request))
-
-def Test(request):
-   return render_to_response('main.html',locals(),RequestContext(request))

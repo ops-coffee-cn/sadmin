@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 #update:2014-09-12 by liufeily@163.com
 
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response,RequestContext
 from django.contrib.auth.decorators import login_required
@@ -21,7 +22,7 @@ def PermissionVerify():
 
             if not iUser.is_superuser: #判断用户如果是超级管理员则具有所有权限
                 if not iUser.role: #如果用户无角色，直接返回无权限
-                    return HttpResponseRedirect('/accounts/permission/deny')
+                    return HttpResponseRedirect(reverse('permissiondenyurl'))
 
                 role_permission = RoleList.objects.get(name=iUser.role)
                 role_permission_list = role_permission.permission.all()
@@ -37,7 +38,7 @@ def PermissionVerify():
 
                 print '%s---->matchUrl:%s' %(request.user,str(matchUrl))
                 if len(matchUrl) == 0:
-                    return HttpResponseRedirect('/accounts/permission/deny')
+                    return HttpResponseRedirect(reverse('permissiondenyurl'))
             else:
                 pass
 
@@ -53,7 +54,7 @@ def NoPermission(request):
         'request':request,
     }
 
-    return render_to_response('UserManage/nopermission.html',kwvars,RequestContext(request))
+    return render_to_response('UserManage/permission.no.html',kwvars,RequestContext(request))
 
 @login_required
 @PermissionVerify()
@@ -62,18 +63,16 @@ def AddPermission(request):
         form = PermissionListForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/permission/list')
+            return HttpResponseRedirect(reverse('listpermissionurl'))
     else:
         form = PermissionListForm()
 
     kwvars = {
         'form':form,
         'request':request,
-        'title':'Permission Add',
-        'postUrl':'/accounts/permission/add/',
     }
 
-    return render_to_response('common/formadd.html',kwvars,RequestContext(request))
+    return render_to_response('UserManage/permission.add.html',kwvars,RequestContext(request))
 
 @login_required
 @PermissionVerify()
@@ -88,7 +87,7 @@ def ListPermission(request):
         'request':request,
     }
 
-    return render_to_response('UserManage/permissionlist.html',kwvars,RequestContext(request))
+    return render_to_response('UserManage/permission.list.html',kwvars,RequestContext(request))
 
 @login_required
 @PermissionVerify()
@@ -99,22 +98,21 @@ def EditPermission(request,ID):
         form = PermissionListForm(request.POST,instance=iPermission)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/permission/list')
+            return HttpResponseRedirect(reverse('listpermissionurl'))
     else:
         form = PermissionListForm(instance=iPermission)
 
     kwvars = {
+        'ID':ID,
         'form':form,
         'request':request,
-        'title':'Permission Edit',
-        'postUrl':'/accounts/permission/edit/%s/' %ID,
     }
 
-    return render_to_response('common/formedit.html',kwvars,RequestContext(request))
+    return render_to_response('UserManage/permission.edit.html',kwvars,RequestContext(request))
 
 @login_required
 @PermissionVerify()
 def DeletePermission(request,ID):
     PermissionList.objects.filter(id = ID).delete()
 
-    return HttpResponseRedirect('/accounts/permission/list')
+    return HttpResponseRedirect(reverse('listpermissionurl'))

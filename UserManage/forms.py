@@ -83,21 +83,6 @@ class AddUserForm(forms.ModelForm):
             'is_active' : forms.Select(choices=((True, u'启用'),(False, u'禁用')),attrs={'class':'form-control'}),
         }
 
-    #username = forms.CharField(label=u'账 号',error_messages={'required':u'账号不能为空','invalid':u'失败'},
-    #    widget=forms.TextInput(attrs={'class':'form-control'}))
-    #password = forms.CharField(label=u'密 码',error_messages={'required':u'密码不能为空','invalid':u'失败'},
-    #    widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    #email = forms.EmailField(label=u'邮 箱',error_messages={'required':u'邮箱不能为空','invalid':u'请输入有效邮箱'},
-    #    widget=forms.TextInput(attrs={'class':'form-control'}))
-    #nickname = forms.CharField(label=u'姓 名',error_messages={'required':u'姓名不能为空','invalid':u'失败'},
-    #    widget=forms.TextInput(attrs={'class':'form-control'}))
-    #sex = forms.ChoiceField(label=u'性 别',error_messages={'required':u'请选择性别','invalid':u'失败'},choices=((u'男', u'男'),(u'女', u'女')),
-    #    widget=forms.RadioSelect(attrs={'class':'list-inline'}))
-    #role = forms.ChoiceField(label=u'角 色',choices=[(x.name,x.name) for x in RoleList.objects.all()],
-    #    widget=forms.Select(attrs={'class':'form-control'}))
-    #is_active = forms.ChoiceField(label=u'状 态',choices=((True, u'启用'),(False, u'禁用')),
-    #    widget=forms.Select(attrs={'class':'form-control'}))
-
     def __init__(self,*args,**kwargs):
         super(AddUserForm,self).__init__(*args,**kwargs)
         self.fields['username'].label=u'账 号'
@@ -179,6 +164,3 @@ class RoleListForm(forms.ModelForm):
         self.fields['name'].error_messages={'required':u'请输入名称'}
         self.fields['permission'].label=u'URL'
         self.fields['permission'].required=False
-
-    #permission = forms.MultipleChoiceField(label=u'权 限',required=False,choices=[(x.id,x.name) for x in PermissionList.objects.all()],
-    #    widget=forms.CheckboxSelectMultiple())
