@@ -21,3 +21,6 @@
 ###Demo:
     http://sadmin.sinaapp.com
     我的blog也是基于这个开发的：http://liufeily.sinaapp.com
+    
+###Python3.5版本    
+https://github.com/hgz6536/opman-django/releases/tag/v1.0
